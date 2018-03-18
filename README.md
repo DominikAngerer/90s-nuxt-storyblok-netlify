@@ -27,3 +27,4 @@ For detailed explanation on how things work, checkout the [Nuxt.js docs](https:/
 1. Setup Nuxt
 2. Setup AppHeader Component
 3. npm install storyblok-nuxt --save
+4. npm i invert-color --save
