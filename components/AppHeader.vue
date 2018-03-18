@@ -17,7 +17,7 @@
 
 <style>
   .header {
-    text-align: center;
+    text-align: center; 
   }
   .header li {
     display: inline-block;
