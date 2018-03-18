@@ -13,6 +13,9 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  modules: [
+    ['storyblok-nuxt', { accessToken: 'ZQGso3v5SVg23HOVwQ4xVwtt', cacheProvider: 'memory' }]
+  ],
   /*
   ** Customize the progress bar color
   */

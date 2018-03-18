@@ -1,15 +1,21 @@
 <template>
-  <div class="index">
-    <div v-for="item in stories">
-      <nuxt-link :to="item.full_slug">{{item.name}}</nuxt-link>
-    </div>
+  <div class="post" v-bind:style="postStyle">
+    <h1>{{story.name}}</h1>
+    <div v-html="markdown"></div>
   </div>
 </template>
 
 <script>
+import marked from 'marked'
+
 export default {
   data () {
-    return { stories: [] }
+    return { story: { name: '', content: { markdown: '' }} }
+  },
+  computed: {
+    markdown () {
+      return marked(this.story.content.markdown)
+    }
   },
   mounted () {
     if (this.$storyblok.inEditor) {
@@ -21,8 +27,8 @@ export default {
     }
   },
   asyncData (context) {
-    return context.app.$storyapi.get('cdn/stories', {
-      starts_with: 'posts',
+    console.log(`cdn/stories/${context.params.post}`);
+    return context.app.$storyapi.get(`cdn/stories/posts/${context.params.post}`, {
       version: 'draft'
     }).then((res) => {
       return res.data
@@ -34,5 +40,7 @@ export default {
 </script>
 
 <style>
-
+.post * + * {
+  margin-bottom: 10px;
+}
 </style>
