@@ -22,4 +22,8 @@ export default {
   box-sizing: border-box;
   margin: 0;
 }
+html {
+  background-color: #990000;
+  color:  #fff;
+}
 </style>

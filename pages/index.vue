@@ -1,8 +1,10 @@
 <template>
   <div class="index">
-    <div v-for="item in stories">
-      <nuxt-link :to="item.full_slug">{{item.name}}</nuxt-link>
-    </div>
+    <ul v-for="item in stories">
+      <li>
+        <nuxt-link :to="item.full_slug">{{item.name}}</nuxt-link>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -14,7 +16,6 @@ export default {
   mounted () {
     if (this.$storyblok.inEditor) {
       this.$storyblok.init()
-
       this.$storyblok.on('change', () => {
         location.reload(true)
       })
@@ -34,5 +35,9 @@ export default {
 </script>
 
 <style>
-
+.index {
+  background: #ccc;
+  color: #000;
+  padding: 30px;
+}
 </style>

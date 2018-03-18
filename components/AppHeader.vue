@@ -11,6 +11,14 @@
 <style>
   .header {
     text-align: center; 
+    background-image: url('http://toastytech.com/evil/burnieani.gif');
+    height: 140px;
+  }
+  .header a {
+    color: #fff;
+    padding-top: 40px;
+    display: block;
+    font-size: 25px
   }
   .header li {
     display: inline-block;
