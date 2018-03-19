@@ -3,8 +3,8 @@
     <div class="nested">
       <component v-if="story.content.component" :key="story.content._uid" :blok="story.content" :is="story.content.component"></component>
     </div>
-    <ul v-for="post in posts">
-      <li>
+    <ul>
+      <li v-for="post in posts">
         <nuxt-link :to="post.full_slug">{{post.name}}</nuxt-link>
       </li>
     </ul>
