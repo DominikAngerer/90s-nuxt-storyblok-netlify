@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     markdown () {
-      return marked(this.story.content.markdown)
+      return marked(this.story.content.markdown || '')
     },
     postStyle() {
       let color = '#' + ('00000' + (Math.random() * 16777216 << 0).toString(16)).substr(-6);
