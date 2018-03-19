@@ -18,6 +18,9 @@ module.exports = {
   modules: [
     ['storyblok-nuxt', { accessToken: 'ZQGso3v5SVg23HOVwQ4xVwtt', cacheProvider: 'memory' }]
   ],
+  plugins: [
+    '~/plugins/components'
+  ],
   /*
   ** Customize the progress bar color
   */
@@ -42,7 +45,7 @@ module.exports = {
   },
   generate: {
     routes: function () {
-      let storyblok = new StoryblokClient({
+      const storyblok = new StoryblokClient({
         accessToken: 'dMPiVMkHLseUK1nHfA0qQwtt'
       })
 

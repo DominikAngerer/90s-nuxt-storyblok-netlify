@@ -1,8 +1,11 @@
 <template>
   <div class="index">
-    <ul v-for="item in stories">
+    <div class="nested">
+      <component v-if="story.content.component" :key="story.content._uid" :blok="story.content" :is="story.content.component"></component>
+    </div>
+    <ul v-for="post in posts">
       <li>
-        <nuxt-link :to="item.full_slug">{{item.name}}</nuxt-link>
+        <nuxt-link :to="post.full_slug">{{post.name}}</nuxt-link>
       </li>
     </ul>
   </div>
@@ -11,7 +14,8 @@
 <script>
 export default {
   data () {
-    return { stories: [] }
+    return { 
+      story: { content: {} }, posts: [] }
   },
   mounted () {
     if (this.$storyblok.inEditor) {
@@ -21,15 +25,16 @@ export default {
       })
     }
   },
-  asyncData (context) {
-    return context.app.$storyapi.get('cdn/stories', {
-      starts_with: 'posts',
-      version: 'draft'
-    }).then((res) => {
-      return res.data
-    }).catch((res) => {
-      context.error({ statusCode: res.response.status, message: res.response.data })
+  async asyncData (context) {
+    const version = context.query._storyblok ? 'draft' : 'published'
+    const homeResponse = await context.app.$storyapi.get('cdn/stories/home', {
+      version: version
     })
+    const postsResponse = await context.app.$storyapi.get('cdn/stories', {
+      starts_with: 'posts',
+      version: version
+    })
+    return { story: homeResponse.data.story, posts: postsResponse.data.stories }
   }
 }
 </script>
@@ -39,5 +44,8 @@ export default {
   background: #ccc;
   color: #000;
   padding: 30px;
+}
+.nested {
+  padding-bottom: 30px;
 }
 </style>

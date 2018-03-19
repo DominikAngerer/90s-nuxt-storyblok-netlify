@@ -1,5 +1,5 @@
 <template>
-  <div class="post" v-bind:style="postStyle">
+  <div class="post" v-editable="story.content" v-bind:style="postStyle">
     <h1>{{story.name}}</h1>
     <div v-html="markdown"></div>
   </div>
@@ -41,15 +41,11 @@ export default {
     })
 
   },
-  asyncData (context) {
-    console.log(`cdn/stories/${context.params.post}`);
-    return context.app.$storyapi.get(`cdn/stories/posts/${context.params.post}`, {
+  async asyncData (context) {
+    let { data } = await context.app.$storyapi.get(`cdn/stories/posts/${context.params.post}`, {
       version: 'draft'
-    }).then((res) => {
-      return res.data
-    }).catch((res) => {
-      context.error({ statusCode: res.response.status, message: res.response.data })
     })
+    return data
   }
 }
 </script>
