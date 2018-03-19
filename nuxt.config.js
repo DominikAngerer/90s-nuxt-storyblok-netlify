@@ -1,3 +1,5 @@
+const StoryblokClient = require('storyblok-js-client')
+
 module.exports = {
   /*
   ** Headers of the page
@@ -36,6 +38,27 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    }
+  },
+  generate: {
+    routes: function () {
+      let storyblok = new StoryblokClient({
+        accessToken: 'dMPiVMkHLseUK1nHfA0qQwtt'
+      })
+
+      return storyblok.get(`cdn/links`, {
+        per_page: 1000
+      }).then((res) => {
+        let routes = []
+        Object.keys(res.data.links).forEach((key) => {
+          if (!res.data.links[key].is_folder) {
+            routes.push(`/${res.data.links[key].slug}`)
+          }
+        })
+        return routes
+      }).catch((res) => {
+        console.error({ statusCode: res.response.status, message: res.response.data })
+      })
     }
   }
 }
